@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>WiFi Cracker - Upload</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="logo">🔐 WiFi Cracker</div>
+        <div class="spacer"></div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="nav-header">
+            <div class="logo">🔐 WiFi Cracker</div>
+            <button class="close-menu" onclick="toggleMenu()">✕</button>
+        </div>
+        <ul class="nav-links">
+            <li class="active">
+                <a href="index.html">
+                    <span class="icon">📁</span>
+                    <span class="text">Upload</span>
+                </a>
+            </li>
+            <li>
+                <a href="config.html">
+                    <span class="icon">⚙️</span>
+                    <span class="text">Configure</span>
+                </a>
+            </li>
+            <li>
+                <a href="progress.html">
+                    <span class="icon">⏳</span>
+                    <span class="text">Progress</span>
+                </a>
+            </li>
+        </ul>
+        <div class="nav-footer">
+            <p>Educational Use Only</p>
+        </div>
+    </nav>
+
+    <!-- Overlay for mobile -->
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <h1>Upload Capture File</h1>
+            <p class="subtitle">Select your .cap or .pcap file</p>
+        </div>
+
+        <!-- Upload Zone -->
+        <div class="upload-section">
+            <div class="drop-zone" id="dropZone">
+                <div class="upload-icon">📡</div>
+                <h2>Tap to Upload</h2>
+                <p class="desktop-text">or drag and drop your file here</p>
+                <p class="file-types">Supports: .cap, .pcap, .pcapng</p>
+                <input type="file" id="fileInput" accept=".cap,.pcap,.pcapng" hidden>
+            </div>
+
+            <!-- File Info Card -->
+            <div class="info-card hidden" id="fileInfo">
+                <div class="card-header">
+                    <h3>📄 File Details</h3>
+                    <button class="btn-icon" onclick="clearFile()">✕</button>
+                </div>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="label">Name</span>
+                        <span class="value" id="fileName">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Size</span>
+                        <span class="value" id="fileSize">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="label">Format</span>
+                        <span class="value" id="fileFormat">-</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Networks Found -->
+            <div class="networks-section hidden" id="networksSection">
+                <h3>📶 Networks Found</h3>
+                <p class="help-text">Select a network to crack</p>
+                <div class="networks-list" id="networksList"></div>
+            </div>
+
+            <!-- Action Button -->
+            <button class="btn btn-primary btn-full hidden" id="nextBtn" onclick="goToConfig()">
+                Continue to Configuration
+                <span class="arrow">→</span>
+            </button>
+        </div>
+
+        <!-- Quick Info Cards -->
+        <div class="quick-info">
+            <div class="info-box">
+                <div class="icon">🔒</div>
+                <h4>WPA/WPA2</h4>
+                <p>Supports both WPA and WPA2 encrypted handshakes</p>
+            </div>
+            <div class="info-box">
+                <div class="icon">⚡</div>
+                <h4>Fast Cracking</h4>
+                <p>GPU-accelerated password recovery</p>
+            </div>
+            <div class="info-box">
+                <div class="icon">📱</div>
+                <h4>Mobile Ready</h4>
+                <p>Works on all devices</p>
+            </div>
+        </div>
+    </main>
+
+    <script src="upload.js"></script>
+</body>
+</html>

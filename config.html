@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>WiFi Cracker - Configure</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="logo">🔐 WiFi Cracker</div>
+        <div class="spacer"></div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="nav-header">
+            <div class="logo">🔐 WiFi Cracker</div>
+            <button class="close-menu" onclick="toggleMenu()">✕</button>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="index.html">
+                    <span class="icon">📁</span>
+                    <span class="text">Upload</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="config.html">
+                    <span class="icon">⚙️</span>
+                    <span class="text">Configure</span>
+                </a>
+            </li>
+            <li>
+                <a href="progress.html">
+                    <span class="icon">⏳</span>
+                    <span class="text">Progress</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="page-header">
+            <button class="btn-back" onclick="history.back()">← Back</button>
+            <h1>Attack Configuration</h1>
+        </div>
+
+        <form id="configForm" onsubmit="event.preventDefault(); startAttack();">
+            <!-- Attack Mode Section -->
+            <section class="config-section">
+                <h2>🎯 Attack Mode</h2>
+                <div class="mode-cards">
+                    <label class="mode-card active">
+                        <input type="radio" name="attackMode" value="dictionary" checked hidden>
+                        <div class="card-content">
+                            <div class="mode-icon">📚</div>
+                            <h3>Dictionary</h3>
+                            <p>Fastest - Uses word lists with smart mutations</p>
+                            <span class="badge recommended">Recommended</span>
+                        </div>
+                    </label>
+                    <label class="mode-card">
+                        <input type="radio" name="attackMode" value="brute" hidden>
+                        <div class="card-content">
+                            <div class="mode-icon">🔢</div>
+                            <h3>Brute Force</h3>
+                            <p>Thorough - Tries all combinations</p>
+                            <span class="badge slow">Slow</span>
+                        </div>
+                    </label>
+                    <label class="mode-card">
+                        <input type="radio" name="attackMode" value="hybrid" hidden>
+                        <div class="card-content">
+                            <div class="mode-icon">⚡</div>
+                            <h3>Hybrid</h3>
+                            <p>Balanced - Words + patterns</p>
+                            <span class="badge balanced">Balanced</span>
+                        </div>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Character Sets -->
+            <section class="config-section">
+                <h2>🔤 Character Sets</h2>
+                <p class="section-desc">Select which characters to include in the attack</p>
+                
+                <div class="charsets-grid">
+                    <label class="charset-toggle active">
+                        <input type="checkbox" name="charset" value="lower" checked hidden>
+                        <span class="toggle-box">
+                            <span class="check">✓</span>
+                            <span class="chars">a-z</span>
+                            <span class="desc">Lowercase</span>
+                        </span>
+                    </label>
+                    <label class="charset-toggle active">
+                        <input type="checkbox" name="charset" value="upper" checked hidden>
+                        <span class="toggle-box">
+                            <span class="check">✓</span>
+                            <span class="chars">A-Z</span>
+                            <span class="desc">Uppercase</span>
+                        </span>
+                    </label>
+                    <label class="charset-toggle active">
+                        <input type="checkbox" name="charset" value="numbers" checked hidden>
+                        <span class="toggle-box">
+                            <span class="check">✓</span>
+                            <span class="chars">0-9</span>
+                            <span class="desc">Numbers</span>
+                        </span>
+                    </label>
+                    <label class="charset-toggle">
+                        <input type="checkbox" name="charset" value="symbols" hidden>
+                        <span class="toggle-box">
+                            <span class="check">✓</span>
+                            <span class="chars">!@#</span>
+                            <span class="desc">Symbols</span>
+                        </span>
+                    </label>
+                    <label class="charset-toggle">
+                        <input type="checkbox" name="charset" value="special" hidden>
+                        <span class="toggle-box">
+                            <span class="check">✓</span>
+                            <span class="chars">€£¥</span>
+                            <span class="desc">Special</span>
+                        </span>
+                    </label>
+                    <label class="charset-toggle">
+                        <input type="checkbox" name="charset" value="spaces" hidden>
+                        <span class="toggle-box">
+                            <span class="check">✓</span>
+                            <span class="chars">␣</span>
+                            <span class="desc">Spaces</span>
+                        </span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Password Length -->
+            <section class="config-section">
+                <h2>📏 Password Length</h2>
+                <div class="length-inputs">
+                    <div class="input-group">
+                        <label>Minimum</label>
+                        <div class="number-stepper">
+                            <button type="button" onclick="adjustLength('min', -1)">−</button>
+                            <input type="number" id="minLength" value="8" min="1" max="64" readonly>
+                            <button type="button" onclick="adjustLength('min', 1)">+</button>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <label>Maximum</label>
+                        <div class="number-stepper">
+                            <button type="button" onclick="adjustLength('max', -1)">−</button>
+                            <input type="number" id="maxLength" value="16" min="1" max="64" readonly>
+                            <button type="button" onclick="adjustLength('max', 1)">+</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="length-slider">
+                    <input type="range" min="1" max="32" value="16" id="lengthRange">
+                </div>
+            </section>
+
+            <!-- Mutation Rules -->
+            <section class="config-section">
+                <h2>🔄 Mutation Rules</h2>
+                <p class="section-desc">Enhance wordlist with variations</p>
+                
+                <div class="rules-list">
+                    <label class="rule-item">
+                        <input type="checkbox" id="ruleNumbers" checked>
+                        <span class="rule-text">
+                            <strong>Append Numbers</strong>
+                            <small>word123, pass2024</small>
+                        </span>
+                        <span class="toggle-switch"></span>
+                    </label>
+                    <label class="rule-item">
+                        <input type="checkbox" id="ruleSymbols" checked>
+                        <span class="rule-text">
+                            <strong>Append Symbols</strong>
+                            <small>word!, pass@</small>
+                        </span>
+                        <span class="toggle-switch"></span>
+                    </label>
+                    <label class="rule-item">
+                        <input type="checkbox" id="ruleLeet">
+                        <span class="rule-text">
+                            <strong>Leet Speak</strong>
+                            <small>p@ssw0rd, 4dm1n</small>
+                        </span>
+                        <span class="toggle-switch"></span>
+                    </label>
+                    <label class="rule-item">
+                        <input type="checkbox" id="ruleCase">
+                        <span class="rule-text">
+                            <strong>Case Variations</strong>
+                            <small>Password, PASSWORD</small>
+                        </span>
+                        <span class="toggle-switch"></span>
+                    </label>
+                </div>
+            </section>
+
+            <!-- Custom Words -->
+            <section class="config-section">
+                <h2>✏️ Custom Words</h2>
+                <p class="section-desc">Add specific words to try (optional)</p>
+                <textarea id="customWords" placeholder="Enter words separated by commas or new lines...&#10;Example:&#10;companyname&#10;wifi2024&#10;admin123"></textarea>
+            </section>
+
+            <!-- Estimation -->
+            <div class="estimation-card">
+                <div class="est-icon">📊</div>
+                <div class="est-info">
+                    <h4>Estimated Combinations</h4>
+                    <p class="est-value" id="estCombinations">Calculating...</p>
+                    <p class="est-time">Estimated time: <span id="estTime">--</span></p>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-primary btn-full btn-large">
+                🚀 Start Cracking Attack
+            </button>
+        </form>
+    </main>
+
+    <script src="config.js"></script>
+</body>
+</html>

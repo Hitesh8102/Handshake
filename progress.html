@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>WiFi Cracker - Progress</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <button class="menu-toggle" onclick="toggleMenu()">☰</button>
+        <div class="logo">🔐 WiFi Cracker</div>
+        <div class="spacer"></div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="sidebar" id="sidebar">
+        <div class="nav-header">
+            <div class="logo">🔐 WiFi Cracker</div>
+            <button class="close-menu" onclick="toggleMenu()">✕</button>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="index.html">
+                    <span class="icon">📁</span>
+                    <span class="text">Upload</span>
+                </a>
+            </li>
+            <li>
+                <a href="config.html">
+                    <span class="icon">⚙️</span>
+                    <span class="text">Configure</span>
+                </a>
+            </li>
+            <li class="active">
+                <a href="progress.html">
+                    <span class="icon">⏳</span>
+                    <span class="text">Progress</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Status Bar -->
+        <div class="status-bar" id="statusBar">
+            <div class="status-pulse running"></div>
+            <span class="status-text" id="statusText">Cracking in progress...</span>
+            <div class="status-actions">
+                <button class="btn-icon" onclick="togglePause()" id="pauseBtn">⏸️</button>
+                <button class="btn-icon" onclick="stopAttack()">⏹️</button>
+            </div>
+        </div>
+
+        <!-- Progress Circle -->
+        <div class="progress-circle-container">
+            <div class="progress-circle" id="progressCircle">
+                <svg viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#667eea" />
+                            <stop offset="100%" stop-color="#764ba2" />
+                        </linearGradient>
+                    </defs>
+                    <circle class="track" cx="50" cy="50" r="42"></circle>
+                    <circle class="fill" cx="50" cy="50" r="42" id="circleFill"></circle>
+                </svg>
+                <div class="circle-content">
+                    <span class="percent" id="percentText">0%</span>
+                    <span class="label">Complete</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="stats-container">
+            <div class="stat-box">
+                <span class="stat-value" id="speedStat">0</span>
+                <span class="stat-label">H/s</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value" id="testedStat">0</span>
+                <span class="stat-label">Tested</span>
+            </div>
+            <div class="stat-box">
+                <span class="stat-value" id="timeStat">00:00</span>
+                <span class="stat-label">Time</span>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="linear-progress">
+            <div class="progress-track">
+                <div class="progress-fill" id="linearFill"></div>
+            </div>
+            <div class="progress-info">
+                <span id="currentAttempt">0</span> / <span id="totalAttempts">0</span>
+            </div>
+        </div>
+
+        <!-- Current Password -->
+        <div class="current-password-box">
+            <label>Currently Testing:</label>
+            <div class="password-display" id="currentPassword">Initializing...</div>
+        </div>
+
+        <!-- Recent Attempts -->
+        <div class="attempts-section">
+            <h3>Recent Attempts</h3>
+            <div class="attempts-list" id="attemptsList"></div>
+        </div>
+
+        <!-- Results Panel (Hidden initially) -->
+        <div class="results-panel hidden" id="resultsPanel">
+            <div class="success-animation">🎉</div>
+            <h2>Password Found!</h2>
+            
+            <div class="password-result">
+                <label>Password:</label>
+                <div class="password-box" id="passwordBox">
+                    <span id="passwordText">••••••••</span>
+                    <button onclick="togglePassword()">👁️</button>
+                    <button onclick="copyPassword()">📋</button>
+                </div>
+            </div>
+
+            <div class="result-details">
+                <div class="detail-row">
+                    <span>Network:</span>
+                    <strong id="resultNetwork">-</strong>
+                </div>
+                <div class="detail-row">
+                    <span>Time Taken:</span>
+                    <strong id="resultTime">-</strong>
+                </div>
+                <div class="detail-row">
+                    <span>Attempts:</span>
+                    <strong id="resultAttempts">-</strong>
+                </div>
+            </div>
+
+            <div class="result-actions">
+                <button class="btn btn-primary" onclick="exportResult()">💾 Save Result</button>
+                <button class="btn btn-secondary" onclick="location.href='index.html'">New Attack</button>
+            </div>
+        </div>
+
+        <!-- Failed Panel -->
+        <div class="failed-panel hidden" id="failedPanel">
+            <div class="failed-icon">😞</div>
+            <h2>Password Not Found</h2>
+            <p>Try adjusting your configuration and try again.</p>
+            <button class="btn btn-primary" onclick="location.href='config.html'">
+                Try Again
+            </button>
+        </div>
+    </main>
+
+    <script src="progress.js"></script>
+</body>
+</html>
